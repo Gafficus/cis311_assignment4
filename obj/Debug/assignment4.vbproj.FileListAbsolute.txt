@@ -1,0 +1,12 @@
+C:\Users\nagaffne\source\repos\assignment4\bin\Debug\assignment4.exe.config
+C:\Users\nagaffne\source\repos\assignment4\bin\Debug\assignment4.exe
+C:\Users\nagaffne\source\repos\assignment4\bin\Debug\assignment4.pdb
+C:\Users\nagaffne\source\repos\assignment4\bin\Debug\assignment4.xml
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.vbprojAssemblyReference.cache
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.Form1.resources
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.Resources.resources
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.vbproj.GenerateResource.cache
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.vbproj.CoreCompileInputs.cache
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.exe
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.xml
+C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.pdb
