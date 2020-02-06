@@ -1,4 +1,16 @@
-﻿Module modDictionaries
+﻿'----------------------------------------------
+'-             File Name: modDictionaries     -
+'-             Part of Project:assignment4    -
+'----------------------------------------------
+'-             Written By: Nathan Gaffney     -
+'-             Written On: 05 Feb 2020        -
+'----------------------------------------------
+'- File Purpose:This file contains the code   -
+'- necessary to create global dictionaries.   -
+'- The code was pulled to it's own file to    -
+'- simplify testing.                          -
+'----------------------------------------------
+Module modDictionaries
     Public gDicBasicMaterials As New Dictionary(Of String, String)
     Public gDicSubAssemblies As New Dictionary(Of String, Dictionary(Of String, String))
     'Public gDicSubAssemblies As New Dictionary(Of Dictionary(Of String, String), String)

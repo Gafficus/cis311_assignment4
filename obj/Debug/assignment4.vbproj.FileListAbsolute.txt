@@ -10,3 +10,14 @@ C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.vbproj.CoreComp
 C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.exe
 C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.xml
 C:\Users\nagaffne\source\repos\assignment4\obj\Debug\assignment4.pdb
+C:\Users\gaffn\source\repos\cis311_assignment4\bin\Debug\assignment4.exe.config
+C:\Users\gaffn\source\repos\cis311_assignment4\bin\Debug\assignment4.exe
+C:\Users\gaffn\source\repos\cis311_assignment4\bin\Debug\assignment4.pdb
+C:\Users\gaffn\source\repos\cis311_assignment4\bin\Debug\assignment4.xml
+C:\Users\gaffn\source\repos\cis311_assignment4\obj\Debug\assignment4.vbprojAssemblyReference.cache
+C:\Users\gaffn\source\repos\cis311_assignment4\obj\Debug\assignment4.Form1.resources
+C:\Users\gaffn\source\repos\cis311_assignment4\obj\Debug\assignment4.Resources.resources
+C:\Users\gaffn\source\repos\cis311_assignment4\obj\Debug\assignment4.vbproj.GenerateResource.cache
+C:\Users\gaffn\source\repos\cis311_assignment4\obj\Debug\assignment4.exe
+C:\Users\gaffn\source\repos\cis311_assignment4\obj\Debug\assignment4.xml
+C:\Users\gaffn\source\repos\cis311_assignment4\obj\Debug\assignment4.pdb
