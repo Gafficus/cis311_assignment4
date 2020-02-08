@@ -50,6 +50,5 @@ Module modDictionaries
         wagonSubAssemblies.Add("4-Wheel Frame", fourWheelFrameParts)
         gDicProducts.Add("Wagon", wagonSubAssemblies)
         'gDicProducts.Add(gDicSubAssemblies, "Wagon")
-
     End Sub
 End Module

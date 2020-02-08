@@ -31,11 +31,18 @@ Public Class frmMain
     Private Sub Form1_Load(sender As Object, e As EventArgs) _
                 Handles MyBase.Load
         modDictionaries.testDics()
+        'For Each i In gDicProducts.Keys
+        '    lstProducts.Items.Add(i)
+        'Next
+        generateLstAllProducts()
+        generateLstAllSubAssemblies()
+        generateLstAllParts()
+    End Sub
+
+    Private Sub generateLstAllProducts()
         For Each i In gDicProducts.Keys
             lstProducts.Items.Add(i)
         Next
-        generateLstAllSubAssemblies()
-        generateLstAllParts()
     End Sub
     '------------------------------------------------------------
     '-             Subprogram Name: generateLstAllParts         -
@@ -128,9 +135,10 @@ Public Class frmMain
         'then change the lstParts list box.
         Dim lstNextListBox As ListBox = outputListBox(0)
 
-        For Each strKey In (dictionary.Item(sender.SelectedItem)).Keys
-            lstNextListBox.Items.Add(strKey)
+        For Each strkey In (dictionary.item(sender.SelectedItem)).keys
+            lstNextListBox.Items.Add(strkey)
         Next
+
     End Sub
     '------------------------------------------------------------
     '-       Subprogram Name: lstProducts_SelectedIndexChanged  -
@@ -179,34 +187,157 @@ Public Class frmMain
     '        lstPartsOfSubassembliesOfProduct.Items.Add(partInSubAssembly)
     '    Next
     'End Sub
+
+    '------------------------------------------------------------
+    '-             Subprogram Name: selectionChanged            -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram listens for selection  -
+    '- change of lstProducts and lstSubAssembliesOfProduct.     -
+    '- When the index is changed 
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- dicNewParsDictionary - This will hold the empty          -
+    '- dictionary that will be added to the subassembly of the  -
+    '- newly created part.                                      -
+    '- dicNewSubassemblyDictionary - This will hold the empty   -
+    '- dictionary for the newly created product. The contents   -
+    '------------------------------------------------------------
     Private Sub btnCreateNewProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnCreateNewProduct.Click
 
+        Dim dicNewSubassemblyDictionary As New Dictionary(Of String, Dictionary(Of String, String))
+
+        'Creates a new entry in the lstProducts box of the new item
+        'The key for this new item in gDicProducts is the text put
+        'into the text box
+        'An empty dictionary of subassemblies is added as the item for the key
+        gDicProducts.Add(txtNewProduct.Text, dicNewSubassemblyDictionary)
+        generateLstAllProducts()
     End Sub
+    '------------------------------------------------------------
+    '-             Subprogram Name: selectionChanged            -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram listens for selection  -
+    '- change of lstProducts and lstSubAssembliesOfProduct.     -
+    '- When the index is changed 
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
     Private Sub btnAddASubAssemblyToProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnAddSubAssemblyToProduct.Click
-
+        Dim dicNewPartDictionary As Dictionary(Of String, String)
+        Debug.WriteLine(lstProducts.SelectedItem)
     End Sub
-
+    '------------------------------------------------------------
+    '-             Subprogram Name: selectionChanged            -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram listens for selection  -
+    '- change of lstProducts and lstSubAssembliesOfProduct.     -
+    '- When the index is changed 
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
     Private Sub btnRemoveASubAssemblyFromProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnRemoveSubAssemblyFromProduct.Click
 
     End Sub
+    '------------------------------------------------------------
+    '-      Subprogram Name: btnCreateNewSubassembly_Click      -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 8 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram will add a new entry to-
+    '- the subassembly list and add a blank dictionary to the   -
+    '- key of that entry                                        -
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- dicNewParsDictionary - This will hold an empty dictionary-
+    '- that will be the paired value for the newly created key  -
+    '- in gDicSubAssemblies
+    '------------------------------------------------------------
     Private Sub btnCreateNewSubassembly_Click(sender As Object, e As EventArgs) _
                 Handles btnCreateNewSubassembly.Click
 
+        Dim dicNewParsDictionary As New Dictionary(Of String, String)
+        gDicSubAssemblies.Add(txtNewSubassembly.Text, dicNewParsDictionary)
+        generateLstAllSubAssemblies()
     End Sub
+    '------------------------------------------------------------
+    '-             Subprogram Name: selectionChanged            -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram listens for selection  -
+    '- change of lstProducts and lstSubAssembliesOfProduct.     -
+    '- When the index is changed 
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
     Private Sub btnAddPartToSubassembly_Click(sender As Object, e As EventArgs) _
                 Handles btnAddPartToSubAssembly.Click
 
     End Sub
+    '------------------------------------------------------------
+    '-             Subprogram Name: selectionChanged            -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram listens for selection  -
+    '- change of lstProducts and lstSubAssembliesOfProduct.     -
+    '- When the index is changed 
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
     Private Sub btnRemovePartFromSubAssemly_Click(sender As Object, e As EventArgs) _
                 Handles btnRemovePartFromSubAssembly.Click
 
     End Sub
+    '------------------------------------------------------------
+    '-             Subprogram Name: selectionChanged            -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram adds a new part to the -
+    '- list of all parts that make up subassemblies.            -
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
     Private Sub btnCreateNewPart_Click(sender As Object, e As EventArgs) _
                 Handles btnCreateNewPart.Click
-
+        gDicBasicMaterials.Add(txtNewPart.Text, txtNewPart.Text)
+        generateLstAllParts()
     End Sub
 
 End Class
