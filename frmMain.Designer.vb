@@ -178,7 +178,7 @@ Partial Class frmMain
         Me.txtNewSubassembly.TabIndex = 14
         Me.txtNewSubassembly.Tag = "12"
         '
-        'Form1
+        'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -198,7 +198,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.lstPartsOfSubassembliesOfProduct)
         Me.Controls.Add(Me.lstSubAssembliesOfProduct)
         Me.Controls.Add(Me.lstProducts)
-        Me.Name = "Form1"
+        Me.Name = "frmMain"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
         Me.PerformLayout()

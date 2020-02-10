@@ -30,16 +30,34 @@ Public Class frmMain
     '------------------------------------------------------------
     Private Sub Form1_Load(sender As Object, e As EventArgs) _
                 Handles MyBase.Load
-        modDictionaries.testDics()
-        'For Each i In gDicProducts.Keys
-        '    lstProducts.Items.Add(i)
-        'Next
+
+        modDictionaries.testDics() 'Populate the dictionaries with sample data
+
+        '-------------------------------
+        'Block of subprograms to write text into the lst boxes
         generateLstAllProducts()
         generateLstAllSubAssemblies()
         generateLstAllParts()
+        '------------------------------
     End Sub
 
+    '------------------------------------------------------------
+    '-             Subprogram Name: generateLstAllProducts      -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram writes the contents of -
+    '- the global dictionary for products into the lstProducts  -
+    '- list box.                                                -
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
     Private Sub generateLstAllProducts()
+        lstProducts.Items.Clear()
         For Each i In gDicProducts.Keys
             lstProducts.Items.Add(i)
         Next
@@ -50,9 +68,9 @@ Public Class frmMain
     '-                    Written By: Nathan Gaffney            -
     '-                     Written On: 5 February 2019          -
     '------------------------------------------------------------
-    '- Subprogram Purpose:This subrogram listens for selection  -
-    '- change of lstProducts and lstSubAssembliesOfProduct.     -
-    '- When the index is changed 
+    '- Subprogram Purpose:This subrogram writes the contents of -
+    '- the basic materials dictionary to the basic materials    -
+    '- list box.                                                -
     '------------------------------------------------------------
     '- Parameter Dictionary (in parameter order)                -
     '------------------------------------------------------------
@@ -60,7 +78,7 @@ Public Class frmMain
     '- (None)                                                   -
     '------------------------------------------------------------
     Private Sub generateLstAllParts()
-        'Throw New NotImplementedException()
+        lstAllParts.Items.Clear()
         For Each strKey In gDicBasicMaterials.Keys
             lstAllParts.Items.Add(strKey)
         Next
@@ -83,6 +101,7 @@ Public Class frmMain
     '- (None)                                                   -
     '------------------------------------------------------------
     Private Sub generateLstAllSubAssemblies()
+        lstAllSubAssemblies.Items.Clear()
         For Each strKey In gDicSubAssemblies.Keys
             lstAllSubAssemblies.Items.Add(strKey)
         Next
@@ -103,7 +122,7 @@ Public Class frmMain
     '- (None)                                                   -
     '------------------------------------------------------------
     Private Sub selectionChanged(sender As ListBox, e As EventArgs) Handles lstSubAssembliesOfProduct.SelectedIndexChanged,
-                                                                                      lstProducts.SelectedIndexChanged
+                                                                            lstProducts.SelectedIndexChanged
         Dim nextObjTag As Integer = sender.Tag + 1
         Dim dictionary As New Object
         'When this subprogram is called we do not know what
@@ -134,14 +153,14 @@ Public Class frmMain
         'will be changed. If lstSubassemblieOfParts index was changed
         'then change the lstParts list box.
         Dim lstNextListBox As ListBox = outputListBox(0)
-
+        clearListBox(lstNextListBox)
         For Each strkey In (dictionary.item(sender.SelectedItem)).keys
             lstNextListBox.Items.Add(strkey)
         Next
 
     End Sub
     '------------------------------------------------------------
-    '-       Subprogram Name: lstProducts_SelectedIndexChanged  -
+    '-             Subprogram Name: btnCreateNewProduct_Click   -
     '------------------------------------------------------------
     '-                    Written By: Nathan Gaffney            -
     '-                     Written On: 5 February 2019          -
@@ -153,59 +172,8 @@ Public Class frmMain
     '- Parameter Dictionary (in parameter order)                -
     '------------------------------------------------------------
     '- Local Variable Dictionary (alphabetically)               -
-    '- (None)                                                   -
-    '------------------------------------------------------------
-
-    'Private Sub lstProducts_SelectedIndexChanged(sender As Object, e As EventArgs) _
-    '            Handles lstProducts.SelectedIndexChanged
-    '    lstSubAssembliesOfProduct.Items.Clear()
-    '    For Each productSubAssembly In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
-    '        lstSubAssembliesOfProduct.Items.Add(productSubAssembly)
-    '    Next
-    'End Sub
-
-    '------------------------------------------------------------
-    '-             Subprogram Name: selectionChanged            -
-    '------------------------------------------------------------
-    '-                    Written By: Nathan Gaffney            -
-    '-                     Written On: 5 February 2019          -
-    '------------------------------------------------------------
-    '- Subprogram Purpose:This subrogram listens for selection  -
-    '- change of lstProducts and lstSubAssembliesOfProduct.     -
-    '- When the index is changed 
-    '------------------------------------------------------------
-    '- Parameter Dictionary (in parameter order)                -
-    '------------------------------------------------------------
-    '- Local Variable Dictionary (alphabetically)               -
-    '- (None)                                                   -
-    '------------------------------------------------------------
-
-    'Private Sub lstSubAssembliesOfProduct_SelectedIndexChanged(sender As Object, e As EventArgs) _
-    '            Handles lstSubAssembliesOfProduct.SelectedIndexChanged
-    '    lstPartsOfSubassembliesOfProduct.Items.Clear()
-    '    For Each partInSubAssembly In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
-    '        lstPartsOfSubassembliesOfProduct.Items.Add(partInSubAssembly)
-    '    Next
-    'End Sub
-
-    '------------------------------------------------------------
-    '-             Subprogram Name: selectionChanged            -
-    '------------------------------------------------------------
-    '-                    Written By: Nathan Gaffney            -
-    '-                     Written On: 5 February 2019          -
-    '------------------------------------------------------------
-    '- Subprogram Purpose:This subrogram listens for selection  -
-    '- change of lstProducts and lstSubAssembliesOfProduct.     -
-    '- When the index is changed 
-    '------------------------------------------------------------
-    '- Parameter Dictionary (in parameter order)                -
-    '------------------------------------------------------------
-    '- Local Variable Dictionary (alphabetically)               -
-    '- dicNewParsDictionary - This will hold the empty          -
-    '- dictionary that will be added to the subassembly of the  -
-    '- newly created part.                                      -
     '- dicNewSubassemblyDictionary - This will hold the empty   -
-    '- dictionary for the newly created product. The contents   -
+    '- dictionary for the newly created product.                -
     '------------------------------------------------------------
     Private Sub btnCreateNewProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnCreateNewProduct.Click
@@ -236,17 +204,25 @@ Public Class frmMain
     '------------------------------------------------------------
     Private Sub btnAddASubAssemblyToProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnAddSubAssemblyToProduct.Click
-        Dim dicNewPartDictionary As New Dictionary(Of String, String)
-        'dicNewPartDictionary.Add(lstProducts.SelectedIndex, gDicSubAssemblies.Keys(lstProducts.SelectedIndex))
+        'Prevents the list of subassemblies for a product from having
+        'duplicate values entered
+        clearListBox(lstSubAssembliesOfProduct)
+
+        'lstProducts will subassemblies the key to be added to
+        'We want to add an item (a dictionary of string of dictionary of string string)
+        'to the selected key. We provide the key as the selected item in the 
+        'lstAllSubassemblies and the item for this key value pair will be the dictionary
+        'the selected subassembly key points to
         gDicProducts.Item(lstProducts.SelectedItem).Add(lstAllSubAssemblies.SelectedItem, gDicSubAssemblies.Item(lstAllSubAssemblies.SelectedItem))
+
+        'Write the subassemblies to the box
         For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
             lstSubAssembliesOfProduct.Items.Add(strkey)
         Next
 
-        Debug.WriteLine(lstProducts.SelectedItem)
     End Sub
     '------------------------------------------------------------
-    '-             Subprogram Name: selectionChanged            -
+    '- Subprogram Name: btnRemoveASubAssemblyFromProduct_Click  -
     '------------------------------------------------------------
     '-                    Written By: Nathan Gaffney            -
     '-                     Written On: 5 February 2019          -
@@ -263,6 +239,12 @@ Public Class frmMain
     Private Sub btnRemoveASubAssemblyFromProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnRemoveSubAssemblyFromProduct.Click
 
+        gDicProducts.Item(lstProducts.SelectedItem).Remove(lstSubAssembliesOfProduct.SelectedItem)
+        clearListBox(lstSubAssembliesOfProduct)
+        'Write the subassemblies to the box
+        For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
+            lstSubAssembliesOfProduct.Items.Add(strkey)
+        Next
     End Sub
     '------------------------------------------------------------
     '-      Subprogram Name: btnCreateNewSubassembly_Click      -
@@ -345,5 +327,50 @@ Public Class frmMain
         gDicBasicMaterials.Add(txtNewPart.Text, txtNewPart.Text)
         generateLstAllParts()
     End Sub
+    '------------------------------------------------------------
+    '-             Subprogram Name: clearListBox                -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 10 February 2019         -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram clears the list box    -
+    '- that was passed to the method.                           -
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '- lstListBox - this is a reference to the listbox that     -
+    '- will be changed by the method.                           -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
+    Private Sub clearListBox(lstListBox As ListBox)
+        lstListBox.Items.Clear()
+        Debug.WriteLine("List box " & lstListBox.Name & " cleared.")
+    End Sub
+    '------------------------------------------------------------
+    '-Subprogram Name: lstAllSubAssemblies_SelectedIndexChanged-
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 10 February 2019         -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram will clear and then    -
+    '- write the contents of a selected sub assembly to the     -
+    '- parts list box.                                          -
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '- sender - this is the objec that sent the method          -
+    '- e- holds the arguments that can be sent to the method    -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
 
+    Private Sub lstAllSubAssemblies_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstAllSubAssemblies.SelectedIndexChanged
+        clearListBox(lstPartsOfSubassembliesOfProduct)
+        'Because we want the parts of a subassembly that has not yet made
+        ' it's way into the product, we grab the item from lstAllSubAssemblies
+        For Each partInSubAssembly In (gDicSubAssemblies.Item(lstAllSubAssemblies.SelectedItem)).Keys
+            lstPartsOfSubassembliesOfProduct.Items.Add(partInSubAssembly)
+        Next
+    End Sub
 End Class

@@ -1,0 +1,48 @@
+﻿
+    '------------------------------------------------------------
+    '-       Subprogram Name: lstProducts_SelectedIndexChanged  -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram listens for selection  -
+    '- change of lstProducts and lstSubAssembliesOfProduct.     -
+    '- When the index is changed 
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
+
+    'Private Sub lstProducts_SelectedIndexChanged(sender As Object, e As EventArgs) _
+    '            Handles lstProducts.SelectedIndexChanged
+    '    lstSubAssembliesOfProduct.Items.Clear()
+    '    For Each productSubAssembly In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
+    '        lstSubAssembliesOfProduct.Items.Add(productSubAssembly)
+    '    Next
+    'End Sub
+
+    '------------------------------------------------------------
+    '-             Subprogram Name: selectionChanged            -
+    '------------------------------------------------------------
+    '-                    Written By: Nathan Gaffney            -
+    '-                     Written On: 5 February 2019          -
+    '------------------------------------------------------------
+    '- Subprogram Purpose:This subrogram listens for selection  -
+    '- change of lstProducts and lstSubAssembliesOfProduct.     -
+    '- When the index is changed 
+    '------------------------------------------------------------
+    '- Parameter Dictionary (in parameter order)                -
+    '------------------------------------------------------------
+    '- Local Variable Dictionary (alphabetically)               -
+    '- (None)                                                   -
+    '------------------------------------------------------------
+
+    'Private Sub lstSubAssembliesOfProduct_SelectedIndexChanged(sender As Object, e As EventArgs) _
+    '            Handles lstSubAssembliesOfProduct.SelectedIndexChanged
+    '    lstPartsOfSubassembliesOfProduct.Items.Clear()
+    '    For Each partInSubAssembly In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
+    '        lstPartsOfSubassembliesOfProduct.Items.Add(partInSubAssembly)
+    '    Next
+    'End Sub

@@ -13,9 +13,7 @@
 Module modDictionaries
     Public gDicBasicMaterials As New Dictionary(Of String, String)
     Public gDicSubAssemblies As New Dictionary(Of String, Dictionary(Of String, String))
-    'Public gDicSubAssemblies As New Dictionary(Of Dictionary(Of String, String), String)
     Public gDicProducts As New Dictionary(Of String, Dictionary(Of String, Dictionary(Of String, String)))
-    'Public gDicProducts As New Dictionary(Of Dictionary(Of Dictionary(Of String, String), String), String)
     Public Sub testDics()
         Dim strItem As String = ""
         Dim strSubAssembly As String = ""
