@@ -236,7 +236,13 @@ Public Class frmMain
     '------------------------------------------------------------
     Private Sub btnAddASubAssemblyToProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnAddSubAssemblyToProduct.Click
-        Dim dicNewPartDictionary As Dictionary(Of String, String)
+        Dim dicNewPartDictionary As New Dictionary(Of String, String)
+        'dicNewPartDictionary.Add(lstProducts.SelectedIndex, gDicSubAssemblies.Keys(lstProducts.SelectedIndex))
+        gDicProducts.Item(lstProducts.SelectedItem).Add(lstAllSubAssemblies.SelectedItem, gDicSubAssemblies.Item(lstAllSubAssemblies.SelectedItem))
+        For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
+            lstSubAssembliesOfProduct.Items.Add(strkey)
+        Next
+
         Debug.WriteLine(lstProducts.SelectedItem)
     End Sub
     '------------------------------------------------------------

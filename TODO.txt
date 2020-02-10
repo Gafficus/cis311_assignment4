@@ -1,0 +1,12 @@
+﻿TODO:
+
+All list boxes need to allow selection of multiple items
+When an index is selected on the lstAll* box it needs to show it's childs parts
+	This could probably be eaily implemented with my current selction changed method,
+	Need to add more handlers and more case swith variable, but should be possible
+Need methods to clear lstboxes
+Need methods to write list boxes by iterating over the key value pairs
+Finish the coding for the < - - functions
+	Need to be able to add multiple items to the respective ditionary
+Code the - - > 
+Handle that stupid exception when selected index out of bound on the lstProducts text box.
