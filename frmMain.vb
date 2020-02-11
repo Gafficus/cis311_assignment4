@@ -213,8 +213,9 @@ Public Class frmMain
         'to the selected key. We provide the key as the selected item in the 
         'lstAllSubassemblies and the item for this key value pair will be the dictionary
         'the selected subassembly key points to
-        gDicProducts.Item(lstProducts.SelectedItem).Add(lstAllSubAssemblies.SelectedItem, gDicSubAssemblies.Item(lstAllSubAssemblies.SelectedItem))
-
+        For Each lstItemSelected In lstAllSubAssemblies.SelectedItems
+            gDicProducts.Item(lstProducts.SelectedItem).Add(lstItemSelected, gDicSubAssemblies.Item(lstItemSelected))
+        Next
         'Write the subassemblies to the box
         For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
             lstSubAssembliesOfProduct.Items.Add(strkey)
@@ -238,8 +239,11 @@ Public Class frmMain
     '------------------------------------------------------------
     Private Sub btnRemoveASubAssemblyFromProduct_Click(sender As Object, e As EventArgs) _
                 Handles btnRemoveSubAssemblyFromProduct.Click
-
-        gDicProducts.Item(lstProducts.SelectedItem).Remove(lstSubAssembliesOfProduct.SelectedItem)
+        'The for each loop will allow for the removal of multiple items
+        'at the same time.
+        For Each lstItemSelected In lstSubAssembliesOfProduct.SelectedItems
+            gDicProducts.Item(lstProducts.SelectedItem).Remove(lstItemSelected)
+        Next
         clearListBox(lstSubAssembliesOfProduct)
         'Write the subassemblies to the box
         For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
@@ -287,7 +291,13 @@ Public Class frmMain
     '------------------------------------------------------------
     Private Sub btnAddPartToSubassembly_Click(sender As Object, e As EventArgs) _
                 Handles btnAddPartToSubAssembly.Click
-
+        For Each lstSelectedItem In lstAllParts.SelectedItems
+            gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem).Add(lstSelectedItem, gDicBasicMaterials(lstSelectedItem))
+        Next
+        clearListBox(lstPartsOfSubassembliesOfProduct)
+        For Each strKey In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
+            lstPartsOfSubassembliesOfProduct.Items.Add(strKey)
+        Next
     End Sub
     '------------------------------------------------------------
     '-             Subprogram Name: selectionChanged            -
@@ -306,7 +316,13 @@ Public Class frmMain
     '------------------------------------------------------------
     Private Sub btnRemovePartFromSubAssemly_Click(sender As Object, e As EventArgs) _
                 Handles btnRemovePartFromSubAssembly.Click
-
+        For Each lstSelectedItem In lstPartsOfSubassembliesOfProduct.SelectedItems
+            gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem).Remove(lstSelectedItem)
+        Next
+        clearListBox(lstPartsOfSubassembliesOfProduct)
+        For Each strKey In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
+            lstPartsOfSubassembliesOfProduct.Items.Add(strKey)
+        Next
     End Sub
     '------------------------------------------------------------
     '-             Subprogram Name: selectionChanged            -

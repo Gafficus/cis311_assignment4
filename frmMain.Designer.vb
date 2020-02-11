@@ -53,6 +53,7 @@ Partial Class frmMain
         Me.lstSubAssembliesOfProduct.FormattingEnabled = True
         Me.lstSubAssembliesOfProduct.Location = New System.Drawing.Point(23, 185)
         Me.lstSubAssembliesOfProduct.Name = "lstSubAssembliesOfProduct"
+        Me.lstSubAssembliesOfProduct.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
         Me.lstSubAssembliesOfProduct.Size = New System.Drawing.Size(272, 121)
         Me.lstSubAssembliesOfProduct.TabIndex = 1
         Me.lstSubAssembliesOfProduct.Tag = "1"
@@ -62,6 +63,7 @@ Partial Class frmMain
         Me.lstPartsOfSubassembliesOfProduct.FormattingEnabled = True
         Me.lstPartsOfSubassembliesOfProduct.Location = New System.Drawing.Point(23, 402)
         Me.lstPartsOfSubassembliesOfProduct.Name = "lstPartsOfSubassembliesOfProduct"
+        Me.lstPartsOfSubassembliesOfProduct.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
         Me.lstPartsOfSubassembliesOfProduct.Size = New System.Drawing.Size(272, 121)
         Me.lstPartsOfSubassembliesOfProduct.TabIndex = 2
         Me.lstPartsOfSubassembliesOfProduct.Tag = "2"
@@ -71,6 +73,7 @@ Partial Class frmMain
         Me.lstAllSubAssemblies.FormattingEnabled = True
         Me.lstAllSubAssemblies.Location = New System.Drawing.Point(606, 185)
         Me.lstAllSubAssemblies.Name = "lstAllSubAssemblies"
+        Me.lstAllSubAssemblies.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
         Me.lstAllSubAssemblies.Size = New System.Drawing.Size(272, 121)
         Me.lstAllSubAssemblies.TabIndex = 3
         Me.lstAllSubAssemblies.Tag = "4"
@@ -80,6 +83,7 @@ Partial Class frmMain
         Me.lstAllParts.FormattingEnabled = True
         Me.lstAllParts.Location = New System.Drawing.Point(606, 402)
         Me.lstAllParts.Name = "lstAllParts"
+        Me.lstAllParts.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
         Me.lstAllParts.Size = New System.Drawing.Size(272, 121)
         Me.lstAllParts.TabIndex = 4
         Me.lstAllParts.Tag = "3"
