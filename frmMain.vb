@@ -117,23 +117,33 @@ Public Class frmMain
     '- When the index is changed 
     '------------------------------------------------------------
     '- Parameter Dictionary (in parameter order)                -
+    '- sender as ListBox - The control that triggerd the event  -
+    '- this is then cast to a Listbox instead of an object to   -
+    '- provide access to Listbox control methods.               -
+    '- e - Holds the event args, currently unused               -
     '------------------------------------------------------------
     '- Local Variable Dictionary (alphabetically)               -
-    '- (None)                                                   -
+    '- lstNextListBox - This is the "child" list box that will  -
+    '- be changed.                                              -
+    '- objDictionaryPointer - This will hold a shallow copy of  -
+    '- global dictionary that is being accessed for its items   -
+    '- nextObjTag - This integer holds the child tag number     -
+    '- to get the child tag simply add one. The tags start at 0 -
+    '- for products and increment by one for each lstBox        -
     '------------------------------------------------------------
     Private Sub selectionChanged(sender As ListBox, e As EventArgs) Handles lstSubAssembliesOfProduct.SelectedIndexChanged,
                                                                             lstProducts.SelectedIndexChanged
         Dim nextObjTag As Integer = sender.Tag + 1
-        Dim dictionary As New Object
+        Dim objDictionaryPointer As New Object
         'When this subprogram is called we do not know what
         'global dictionary to use. A cheap way to change this
         'is to create a Select case statement. Grab the tag
         'property of the sending object 
         Select Case sender.Tag
             Case 0
-                dictionary = gDicProducts
+                objDictionaryPointer = gDicProducts
             Case 1
-                dictionary = gDicSubAssemblies
+                objDictionaryPointer = gDicSubAssemblies
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -155,7 +165,7 @@ Public Class frmMain
         Dim lstNextListBox As ListBox = outputListBox(0)
         Try
             clearListBox(lstNextListBox)
-            For Each strkey In (dictionary.item(sender.SelectedItem)).keys
+            For Each strkey In (objDictionaryPointer.item(sender.SelectedItem)).keys
                 lstNextListBox.Items.Add(strkey)
             Next
         Catch ex As Exception
@@ -192,8 +202,15 @@ Public Class frmMain
         'The key for this new item in gDicProducts is the text put
         'into the text box
         'An empty dictionary of subassemblies is added as the item for the key
-        gDicProducts.Add(txtNewProduct.Text, dicNewSubassemblyDictionary)
-        generateLstAllProducts()
+        If (Not gDicProducts.ContainsKey(txtNewProduct.Text)) And (Not txtNewProduct.Text.Equals("")) Then
+            gDicProducts.Add(txtNewProduct.Text, dicNewSubassemblyDictionary)
+            generateLstAllProducts()
+        Else
+            txtNewProduct.Clear()
+            MessageBox.Show("Please ensure that:" & vbCrLf &
+                            "1. Product does not already exist." & vbCrLf &
+                            "2. Entered value is not blank.")
+        End If
     End Sub
     '------------------------------------------------------------
     '-             Subprogram Name: selectionChanged            -
@@ -222,12 +239,20 @@ Public Class frmMain
         'lstAllSubassemblies and the item for this key value pair will be the dictionary
         'the selected subassembly key points to
         For Each lstItemSelected In lstAllSubAssemblies.SelectedItems
-            gDicProducts.Item(lstProducts.SelectedItem).Add(lstItemSelected, gDicSubAssemblies.Item(lstItemSelected))
+            If Not gDicProducts.Item(lstProducts.SelectedItem).ContainsKey(lstItemSelected) Then
+                gDicProducts.Item(lstProducts.SelectedItem).Add(lstItemSelected, gDicSubAssemblies.Item(lstItemSelected))
+            End If
+
         Next
-        'Write the subassemblies to the box
-        For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
-            lstSubAssembliesOfProduct.Items.Add(strkey)
-        Next
+        Try
+            'Write the subassemblies to the box
+            For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
+                lstSubAssembliesOfProduct.Items.Add(strkey)
+            Next
+        Catch ex As System.ArgumentNullException
+            MessageBox.Show("Please select a valid entry.")
+        End Try
+
 
     End Sub
     '------------------------------------------------------------
@@ -236,11 +261,13 @@ Public Class frmMain
     '-                    Written By: Nathan Gaffney            -
     '-                     Written On: 5 February 2019          -
     '------------------------------------------------------------
-    '- Subprogram Purpose:This subrogram listens for selection  -
-    '- change of lstProducts and lstSubAssembliesOfProduct.     -
-    '- When the index is changed 
+    '- Subprogram Purpose:This subrogram will remove the        -
+    '- selected subassemblie from the selected part and then    -
+    '- re-list all the subassemblies of the selected part       -
     '------------------------------------------------------------
     '- Parameter Dictionary (in parameter order)                -
+    '- sender - the control that triggered the event            -
+    '- e - event args, currently unused                         -
     '------------------------------------------------------------
     '- Local Variable Dictionary (alphabetically)               -
     '- (None)                                                   -
@@ -253,10 +280,15 @@ Public Class frmMain
             gDicProducts.Item(lstProducts.SelectedItem).Remove(lstItemSelected)
         Next
         clearListBox(lstSubAssembliesOfProduct)
-        'Write the subassemblies to the box
-        For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
-            lstSubAssembliesOfProduct.Items.Add(strkey)
-        Next
+        Try
+            'Write the subassemblies to the box
+            For Each strkey In (gDicProducts.Item(lstProducts.SelectedItem)).Keys
+                lstSubAssembliesOfProduct.Items.Add(strkey)
+            Next
+        Catch ex As System.ArgumentNullException
+            MessageBox.Show("Please select a valid entry.")
+        End Try
+
     End Sub
     '------------------------------------------------------------
     '-      Subprogram Name: btnCreateNewSubassembly_Click      -
@@ -279,11 +311,22 @@ Public Class frmMain
                 Handles btnCreateNewSubassembly.Click
 
         Dim dicNewParsDictionary As New Dictionary(Of String, String)
-        gDicSubAssemblies.Add(txtNewSubassembly.Text, dicNewParsDictionary)
-        generateLstAllSubAssemblies()
+
+
+        If (Not gDicSubAssemblies.ContainsKey(txtNewSubassembly.Text)) And
+            (Not txtNewSubassembly.Text.Equals("")) Then
+            gDicSubAssemblies.Add(txtNewSubassembly.Text, dicNewParsDictionary)
+            generateLstAllSubAssemblies()
+        Else
+            txtNewSubassembly.Clear()
+            MessageBox.Show("Please ensure that:" & vbCrLf &
+                            "1. Sub-Assembly does not already exist." & vbCrLf &
+                            "2. Entered value is not blank.")
+        End If
     End Sub
+
     '------------------------------------------------------------
-    '-             Subprogram Name: selectionChanged            -
+    '-Subprogram Name: btnAddPartToSubassembly_Click            -
     '------------------------------------------------------------
     '-                    Written By: Nathan Gaffney            -
     '-                     Written On: 5 February 2019          -
@@ -299,25 +342,34 @@ Public Class frmMain
     '------------------------------------------------------------
     Private Sub btnAddPartToSubassembly_Click(sender As Object, e As EventArgs) _
                 Handles btnAddPartToSubAssembly.Click
+        'Check to make sure the item does not already exist.
         For Each lstSelectedItem In lstAllParts.SelectedItems
-            gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem).Add(lstSelectedItem, gDicBasicMaterials(lstSelectedItem))
+            If Not gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem).ContainsKey(lstSelectedItem) Then
+                gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem).Add(lstSelectedItem, gDicBasicMaterials(lstSelectedItem))
+            End If
         Next
         clearListBox(lstPartsOfSubassembliesOfProduct)
-        For Each strKey In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
-            lstPartsOfSubassembliesOfProduct.Items.Add(strKey)
-        Next
+        Try
+            For Each strKey In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
+                lstPartsOfSubassembliesOfProduct.Items.Add(strKey)
+            Next
+        Catch ex As System.ArgumentNullException
+            MessageBox.Show("Please select a valid entry.")
+        End Try
+
     End Sub
     '------------------------------------------------------------
-    '-             Subprogram Name: selectionChanged            -
+    '-Subprogram Name: btnRemovePartFromSubAssemly_Click        -
     '------------------------------------------------------------
     '-                    Written By: Nathan Gaffney            -
     '-                     Written On: 5 February 2019          -
     '------------------------------------------------------------
-    '- Subprogram Purpose:This subrogram listens for selection  -
-    '- change of lstProducts and lstSubAssembliesOfProduct.     -
-    '- When the index is changed 
+    '- Subprogram Purpose:This subrogram removes a part from    -
+    '- the selcted sub assembly                                 -
     '------------------------------------------------------------
     '- Parameter Dictionary (in parameter order)                -
+    '- sender - the control that triggered the event            -
+    '- e - event arguments currently unused                     -
     '------------------------------------------------------------
     '- Local Variable Dictionary (alphabetically)               -
     '- (None)                                                   -
@@ -328,12 +380,17 @@ Public Class frmMain
             gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem).Remove(lstSelectedItem)
         Next
         clearListBox(lstPartsOfSubassembliesOfProduct)
-        For Each strKey In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
-            lstPartsOfSubassembliesOfProduct.Items.Add(strKey)
-        Next
+        Try
+            For Each strKey In (gDicSubAssemblies.Item(lstSubAssembliesOfProduct.SelectedItem)).Keys
+                lstPartsOfSubassembliesOfProduct.Items.Add(strKey)
+            Next
+        Catch ex As System.ArgumentNullException
+            MessageBox.Show("Please select a valid entry!")
+        End Try
+
     End Sub
     '------------------------------------------------------------
-    '-             Subprogram Name: selectionChanged            -
+    '-             Subprogram Name: btnCreateNewPart_Click       -
     '------------------------------------------------------------
     '-                    Written By: Nathan Gaffney            -
     '-                     Written On: 5 February 2019          -
@@ -342,14 +399,25 @@ Public Class frmMain
     '- list of all parts that make up subassemblies.            -
     '------------------------------------------------------------
     '- Parameter Dictionary (in parameter order)                -
+    '- sender - the control that triggered the event            -
+    '- e - event argument currently unused                      - 
     '------------------------------------------------------------
     '- Local Variable Dictionary (alphabetically)               -
     '- (None)                                                   -
     '------------------------------------------------------------
     Private Sub btnCreateNewPart_Click(sender As Object, e As EventArgs) _
                 Handles btnCreateNewPart.Click
-        gDicBasicMaterials.Add(txtNewPart.Text, txtNewPart.Text)
-        generateLstAllParts()
+        If (Not gDicBasicMaterials.ContainsKey(txtNewPart.Text)) And
+            (Not txtNewPart.Text.Equals("")) Then
+            gDicBasicMaterials.Add(txtNewPart.Text, txtNewPart.Text)
+            generateLstAllParts()
+        Else
+            txtNewPart.Clear()
+            MessageBox.Show("Please ensure that:" & vbCrLf &
+                            "1. Part does not already exist." & vbCrLf &
+                            "2. Entered value is not blank.")
+        End If
+
     End Sub
     '------------------------------------------------------------
     '-             Subprogram Name: clearListBox                -
@@ -393,8 +461,15 @@ Public Class frmMain
         clearListBox(lstPartsOfSubassembliesOfProduct)
         'Because we want the parts of a subassembly that has not yet made
         ' it's way into the product, we grab the item from lstAllSubAssemblies
-        For Each partInSubAssembly In (gDicSubAssemblies.Item(lstAllSubAssemblies.SelectedItem)).Keys
-            lstPartsOfSubassembliesOfProduct.Items.Add(partInSubAssembly)
-        Next
+        Try
+            For Each partInSubAssembly In (gDicSubAssemblies.Item(lstAllSubAssemblies.SelectedItem)).Keys
+                lstPartsOfSubassembliesOfProduct.Items.Add(partInSubAssembly)
+            Next
+        Catch ex As Exception
+            'Cat exception to prevent the program from crashing
+            Debug.WriteLine("Caught an exception from deslecting and index, creating an error.")
+        End Try
+
     End Sub
+
 End Class

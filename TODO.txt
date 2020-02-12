@@ -1,13 +1,7 @@
 ﻿TODO:
 
-Need methods to write list boxes by iterating over the key value pairs
 Handle case sensitivity of input boxes
-Prevent user from entering an empty text into the text box
-Prevent duplicates from being entered
-Handle no item selected
-Prevent <- and -> from adding the same item if already exists.
-Fix Comments
-Tab Order
+
 
 If time/drive:
 Alter the generate dictionary mtheod

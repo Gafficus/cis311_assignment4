@@ -163,7 +163,7 @@ Partial Class frmMain
         Me.txtNewProduct.Location = New System.Drawing.Point(669, 135)
         Me.txtNewProduct.Name = "txtNewProduct"
         Me.txtNewProduct.Size = New System.Drawing.Size(196, 20)
-        Me.txtNewProduct.TabIndex = 12
+        Me.txtNewProduct.TabIndex = 0
         Me.txtNewProduct.Tag = "12"
         '
         'txtNewPart
@@ -171,7 +171,7 @@ Partial Class frmMain
         Me.txtNewPart.Location = New System.Drawing.Point(669, 553)
         Me.txtNewPart.Name = "txtNewPart"
         Me.txtNewPart.Size = New System.Drawing.Size(196, 20)
-        Me.txtNewPart.TabIndex = 13
+        Me.txtNewPart.TabIndex = 2
         Me.txtNewPart.Tag = "12"
         '
         'txtNewSubassembly
@@ -179,7 +179,7 @@ Partial Class frmMain
         Me.txtNewSubassembly.Location = New System.Drawing.Point(669, 339)
         Me.txtNewSubassembly.Name = "txtNewSubassembly"
         Me.txtNewSubassembly.Size = New System.Drawing.Size(196, 20)
-        Me.txtNewSubassembly.TabIndex = 14
+        Me.txtNewSubassembly.TabIndex = 1
         Me.txtNewSubassembly.Tag = "12"
         '
         'frmMain
@@ -203,7 +203,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.lstSubAssembliesOfProduct)
         Me.Controls.Add(Me.lstProducts)
         Me.Name = "frmMain"
-        Me.Text = "Form1"
+        Me.Text = "Gilmoure's Glorious Goods - For All Things Mundane And Magic"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
