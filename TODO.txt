@@ -1,11 +1,15 @@
 ﻿TODO:
 
 Need methods to write list boxes by iterating over the key value pairs
-Handle that stupid exception when selected index out of bound on the lstProducts text box.
 Handle case sensitivity of input boxes
 Prevent user from entering an empty text into the text box
 Prevent duplicates from being entered
 Handle no item selected
 Prevent <- and -> from adding the same item if already exists.
-At least 2 default products with 1-3 subassemblies each sub with 1 to 2 parts
+Fix Comments
+Tab Order
 
+If time/drive:
+Alter the generate dictionary mtheod
+Change the btn listeners to be less clunky
+Error handing once instead of multiple times

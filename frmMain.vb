@@ -153,10 +153,18 @@ Public Class frmMain
         'will be changed. If lstSubassemblieOfParts index was changed
         'then change the lstParts list box.
         Dim lstNextListBox As ListBox = outputListBox(0)
-        clearListBox(lstNextListBox)
-        For Each strkey In (dictionary.item(sender.SelectedItem)).keys
-            lstNextListBox.Items.Add(strkey)
-        Next
+        Try
+            clearListBox(lstNextListBox)
+            For Each strkey In (dictionary.item(sender.SelectedItem)).keys
+                lstNextListBox.Items.Add(strkey)
+            Next
+        Catch ex As Exception
+            'An exception is thrown when the user clicks outside
+            'of the index area for a created value. To prevent 
+            'a no key selectd error we will use a catch.
+            Debug.WriteLine("Caught an exception from selecting an index.")
+        End Try
+
 
     End Sub
     '------------------------------------------------------------
